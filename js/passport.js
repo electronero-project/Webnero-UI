@@ -110,17 +110,15 @@ var PassportPipeline = {
         return this.passportParams.code = this.myDecipher(sessionStorage.code);
     },
     setCoinUUID: function(coinSymbol, passportLogin){
-        coinSymbol = 'crfi';
+        console.log("setCoinUUID coinSymbol: " + coinSymbol);
         return sessionStorage.setItem(coinSymbol+"_uuid", this.myCipher(passportLogin.data.uid));
     },
     getCoinUUID: function(coinSymbol){
-        coinSymbol = 'crfi';
+        console.log("getCoinUUID coinSymbol: " + coinSymbol);
         return this.myDecipher(sessionStorage.getItem(coinSymbol+"_uuid"));
     },
     performOperation: function(coinSymbol, operationCallback){
-        coinSymbol = 'crfi';
         this.loadParams();    
-        
         
         this.passportParams.method = 'login';
         this.setMethod('login');
@@ -165,7 +163,6 @@ var PassportPipeline = {
         });
     },
     registerOperation: function(coinSymbol, operationCallback){
-        coinSymbol = 'crfi';
         this.loadParams();
         
         this.passportParams.method = 'register';
