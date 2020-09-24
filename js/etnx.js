@@ -58,7 +58,7 @@ var ModelViewController = {
         }
         return ModelViewController.coinState = which;
     },
-    coins: { coin: ['crfi', 'etnx','etnxp','ltnx','gldx'] },
+    coins: { coin: ['crfi'] },
     setCoinData: function(coin, data){
         return localStorage.setItem(coin+"Data", data);       
     },
@@ -203,10 +203,6 @@ var ModelViewController = {
         $("#spinner-modal").modal('show');
         PassportPipeline.loadCode();
         PassportPipeline.performOperation("crfi", ModelViewController.initCoin);
-        PassportPipeline.performOperation("etnx", ModelViewController.initCoin);
-        PassportPipeline.performOperation("etnxp", ModelViewController.initCoin);
-        PassportPipeline.performOperation("ltnx", ModelViewController.initCoin);
-        PassportPipeline.performOperation("gldx", ModelViewController.initCoin);
     },
 };
 
