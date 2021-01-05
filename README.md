@@ -1,4 +1,4 @@
-# [Electronero Web Html]
+# [CrystalID Web Html]
 
 ## Using the Source Files
 
@@ -14,3 +14,5 @@ bower update
 
 npm install gulp-nunjucks-render --save-dev
 npm install gulp-data --save-dev
+
+This would need to connect to the CrystalID API which currently does not allow localhost connections
