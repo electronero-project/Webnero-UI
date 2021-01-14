@@ -115,7 +115,7 @@ var PassportPipeline = {
     },
     getCoinUUID: function(coinSymbol){
         console.log("getCoinUUID coinSymbol: " + coinSymbol);
-        return this.myDecipher(sessionStorage.getItem(coinSymbol+"_uuid"));
+        return sessionStorage.getItem(coinSymbol+"_uuid");
     },
     performOperation: function(coinSymbol, operationCallback){
         this.loadParams();    
