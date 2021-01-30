@@ -1,4 +1,3 @@
-
 <!-- layout.njk -->
 
 <!DOCTYPE html>
@@ -34,36 +33,7 @@
 
     <body>
         
-        
-
-    <div class="container">
-        <div id="login-container" class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-etnx">
-                    <div class="panel-heading" style="text-align: center">
-                        
-                            <img height="40px" width="40px" src="../img/etnx.png" />
-                        
-                            <img height="40px" width="40px" src="../img/etnxp.png" />
-                        
-                            <img height="40px" width="40px" src="../img/ltnx.png" />
-                        
-                            <img height="40px" width="40px" src="../img/gldx.png" />
-                        
-                    </div>
-                    <div class="panel-body">
-                        <div class="alert alert-success">
-                            <h2>Registration Success</h2>
-                            <p>Check your email for Electronero Passport account verification link(s)</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
+        {% block content %} {% endblock %}
 
         <script type="text/javascript" src="../plugins/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -73,9 +43,8 @@
         <script type="text/javascript" src="../dist/js/passport.js"></script>
         <script type="text/javascript" src="../dist/js/etnx.js"></script>
         
-         
+        {% block scripts %} {% endblock %}
 
     </body>
-
 
 </html>

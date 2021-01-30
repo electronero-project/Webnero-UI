@@ -1,0 +1,142 @@
+@import "variables.less";
+@import "mixins.less";
+
+.light {
+    
+    .btn-login {
+        border-color: @blue-logic;
+        background-color: white;
+        color: @blue-label;
+        font-weight: bold;
+        &.btn-selected{
+            background-color: @blue-label;
+        }
+        &:hover{
+            color: yellow;
+        }
+    }
+    .login-root{
+        .panel-etnx {
+            border-color: @blue-logic;
+            border-width: 2px;
+            > .panel-heading {
+                border-color: @blue-logic;
+                color: white;
+                background-color: white;
+            }
+            .panel-body  {
+                border-color: @blue-logic;
+                color: white;
+                background-color: white;
+            }
+            > .panel-footer {
+                border-color: white;
+                color: white;
+                background-color: white;
+            }
+        }
+    }
+    
+    .panel-etnx {
+        border-color: yellow;
+        border-width: 2px;
+        > .panel-heading {
+            border-color: yellow;
+            color:  @blue-logic;
+            background-color: yellow;
+        }
+        >.panel-body  {
+            border-color: yellow;
+            color: @blue-label;
+            background-color: white;
+        }
+        > .panel-footer {
+            border-color: yellow;
+            color: @blue-logic;
+            background-color: white;
+        }
+    }
+
+    .panel-gldx {
+        border-color: yellow;
+        border-width: 2px;
+        > .panel-heading {
+            border-color: yellow;
+            color:  @blue-logic;
+            background-color: yellow;
+        }
+        > .panel-footer {
+            border-color: yellow;
+            color: @blue-logic;
+            background-color: white;
+        }
+    }
+
+    .panel-etnxp {
+        &:extend(.panel-green all);
+        > .panel-heading {
+            color:  @blue-logic;
+        }
+        > .panel-footer {
+            background-color: white;
+        }
+    }
+
+    .panel-ltnx {
+        border-color: grey;
+        border-width: 2px;
+        > .panel-heading {
+            border-color: grey;
+            color: @blue-logic;
+            background-color: grey;
+        }
+        > .panel-footer {
+            border-color: grey;
+            color: @blue-logic;
+            background-color: white;
+        }
+    }
+
+    .navbar-default{
+        border: 0;
+        background-color: white;
+
+        .sidebar {
+            ul li {
+                border-bottom: 1px solid @blue-logic;
+                &.side-menu-first {
+                    border-top: 1px solid @blue-logic;
+                }
+                a.active {
+                    background-color: @blue-logic;
+                    color: white;    
+                }
+            }
+        } 
+    }
+
+    #page-wrapper{
+        border-color: @blue-logic;
+        background-color: white;
+    }
+
+    #wrapper{
+        background-color: white;
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: @blue-logic
+    }
+
+    .table-striped>tbody>tr:nth-of-type(even) {
+        background-color: @blue-label
+    }
+
+    .table-bordered {
+        border-color: @blue-logic
+    }
+    
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th { 
+        border-color: @blue-logic
+    }
+}

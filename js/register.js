@@ -1,6 +1,7 @@
 $(document).on("click", "#register", function(){
     $(".alert").css("display", "none");
     if(validateField()){
+        cleanPinCode();
         $("#pin-code-container").css("display", "block");
         $("#register-container").css("display", "none");
     }

@@ -1,0 +1,25 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <div class="container">
+        <div id="login-container" class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-etnx">
+                    <div class="panel-heading" style="text-align: center">
+                        {% for coin in coins %}
+                            <img height="40px" width="40px" src="../img/{{coin}}.png" />
+                        {% endfor %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-success">
+                            <h2>Registration Success</h2>
+                            <p>Check your email for Electronero Passport account verification link(s)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

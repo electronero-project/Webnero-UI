@@ -1,0 +1,100 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+      <div id="wrapper">
+
+        {% include "../templates/navigation.njk" %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as etnx %}
+                    {{ etnx.card('etnx') }}
+                </div>
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as etnxp %}
+                    {{ etnxp.card('etnxp') }}
+                </div>
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as ltnx %}
+                    {{ ltnx.card('ltnx') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as gldx %}
+                    {{ gldx.card('gldx') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-etnx">
+                        <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Transfer coin
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group" style="text-align: center">
+                                    {% for coin in coins %}
+                                        <button id="{{coin}}-send" class="btn btn-lg btn-login coin-selector {{ "btn-selected" if coin === 'etnx' }}">
+                                            <img height="70px" width="70px" src="../img/{{coin}}.png" />
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div role="form">
+                                        <label>Amount</label>
+                                        <div class="form-group input-group">
+                                            <input id="amount" type="number" class="form-control">
+                                            <span class="input-group-addon">All</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input id="receiver" class="form-control" placeholder="etnx...">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Priority</label>
+                                        <select id="priority" class="form-control">
+                                            <option>x0.25</option>
+                                            <option>x0.50</option>
+                                            <option>x0.75</option>
+                                            <option>x1.00</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Payment ID (optional)</label>
+                                        <input id="pid" class="form-control" placeholder="16 or 64 hexadecimal characters">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group" style="text-align: center">
+                                    <button id="send-modal" class="btn btn-lg btn-login btn-primary" style="width: 100px"> Send </button>
+                                    <button class="btn btn-lg btn-login btn-primary" style="width: 100px"> Cancel </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "../templates/modals/pincode.njk" %}
+        
+        {% include "../templates/modals/spinner.njk" %}
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %} 
+    <script type="text/javascript" src="../plugins/metisMenu/metisMenu.min.js"></script>
+    <script type="text/javascript" src="../dist/js/pin-code-utils.js"></script>
+    <script type="text/javascript" src="../dist/js/send.js"></script>
+{% endblock %}

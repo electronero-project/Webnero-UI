@@ -1,0 +1,172 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+    <div id="wrapper">
+
+        {% include "../templates/navigation.njk" %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="alert alert-danger" style="display: none">
+                    </div>
+                    <div class="alert alert-success" style="display: none">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    {% import "../templates/macros/coin_enable.njk" as etnx %}
+                    {{ etnx.enable('etnx', 'Electronero') }}
+                </div>
+                <div class="col-lg-3">
+                    {% import "../templates/macros/coin_enable.njk" as etnxp %}
+                    {{ etnxp.enable('etnxp', 'Electronero Pulse') }}
+                </div>
+                <div class="col-lg-3">
+                    {% import "../templates/macros/coin_enable.njk" as ltnx %}
+                    {{ ltnx.enable('ltnx', 'Litenero') }}
+                </div>
+                <div class="col-lg-3">
+                    {% import "../templates/macros/coin_enable.njk" as gldx %}
+                    {{ gldx.enable('gldx', 'Goldnero') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="panel panel-etnx panel-settings">
+                        <div class="panel-heading">
+                            2 Factor Authentication
+                        </div>
+                        <div class="panel-body">
+                            <i class="fa fa-lock" style="font-size: 70px; vertical-align: middle"></i>
+                            <label class="switch">
+                                <input coin="2fa" type="checkbox"
+                                    msg-on="Scan this QR or Enter this code on Google Authenticator app to enable 2fa on your device" 
+                                    msg-off="Are you sure you want to disable 2FA on yours wallets ?" >
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="panel panel-etnx panel-settings">
+                        <div class="panel-heading">
+                            Password Reset
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <input id="newpwd" class="form-control form-settings" placeholder="New Password" name="newpwd" type="password" autofocus>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <input id="confirmpwd" class="form-control form-settings" placeholder="Confirm New Password" name="confirmpwd" type="password" value="">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <button id="resetpwd" class="btn btn-lg btn-login btn-block btn-primary">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-etnx panel-settings">
+                        <div class="panel-heading">
+                            Autrefresh Interval
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group col-lg-3">
+                                    <i class="fa fa-refresh" style="font-size: 45px; vertical-align: middle"></i>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <input id="autorefresh" class="form-control form-settings" placeholder="5" name="autorefresh" type="number" value="">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <button id="save" class="btn btn-lg btn-login btn-block btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="panel panel-etnx panel-settings">
+                        <div class="panel-heading">
+                            Code Reset
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <input id="newcode" class="form-control form-settings" placeholder="New Code" name="newcode" type="password" autofocus>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <input id="confirmcode" class="form-control form-settings" placeholder="Confirm Code" name="confirmcode" type="password" value="">
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <button id="resetcode" class="btn btn-lg btn-login btn-block btn-primary">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-etnx panel-settings">
+                        <div class="panel-heading">
+                            Beneficiaries
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <input id="namebenef" class="form-control form-settings" placeholder="Name" name="namebenef" type="text" autofocus>
+                                </div>
+                                <div class="form-group col-lg-8">
+                                    <input id="emailbenef" class="form-control form-settings" placeholder="Email" name="emailbenef" type="text" autofocus>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-8">
+                                    <input id="beneneficiary" class="form-control form-settings" placeholder="Address" name="beneneficiary" type="text" autofocus>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <button id="add" class="btn btn-lg btn-login btn-block btn-primary"><i class="fa fa-plus-circle"></i> Beneneficiary</button>
+                                </div>
+                            </div>
+                            <div class="panel panel-etnx">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">List</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled">
+                                            <li>Interchained - f4VR74XR616Tw2wAMMfaLV1vmYBSBBbmWXBUtaV8YDb6DHsfKRoYkFaCvhPhsGDDfm1afhzLNuf5XGFmNrvodPoQ6m4qMD8nU1G5euv4i4zZs</li>
+                                            <li>Crepuscolo - f4VR74XR616Tw2wAMMfaLV1vmYBSBBbmWXBUtaV8YDb6DHsfKRoYkFaCvhPhsGDDfm1afhzLNuf5XGFmNrvodPoQ6m4qMD8nU1G5euv4i4zZs</li>
+                                            <li>Triskell - f4VR74XR616Tw2wAMMfaLV1vmYBSBBbmWXBUtaV8YDb6DHsfKRoYkFaCvhPhsGDDfm1afhzLNuf5XGFmNrvodPoQ6m4qMD8nU1G5euv4i4zZs</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "../templates/modals/spinner.njk" %}
+
+        {% include "../templates/modals/confirm.njk" %}
+    </div>
+{% endblock %}
+
+{% block scripts %} 
+    <script type="text/javascript" src="../dist/js/settings.js"></script>
+{% endblock %}

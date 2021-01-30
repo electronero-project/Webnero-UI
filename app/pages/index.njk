@@ -1,0 +1,67 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+      <div id="wrapper">
+
+        {% include "../templates/navigation.njk" %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as etnx %}
+                    {{ etnx.card('etnx') }}
+                </div>
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as etnxp %}
+                    {{ etnxp.card('etnxp') }}
+                </div>
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as ltnx %}
+                    {{ ltnx.card('ltnx') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-12 item">
+                    {% import "../templates/macros/coin_card.njk" as gldx %}
+                    {{ gldx.card('gldx') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-etnx">
+                        <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Your wallets
+                        </div>
+                       <div class="panel-body">
+                            {% import "../templates/macros/coin_addrqr.njk" as etnx %}
+                            {{ etnx.addrqr('etnx') }}
+                            
+                            {% import "../templates/macros/coin_addrqr.njk" as etnxp %}
+                            {{ etnxp.addrqr('etnxp') }}
+
+                            {% import "../templates/macros/coin_addrqr.njk" as ltnx %}
+                            {{ ltnx.addrqr('ltnx') }}
+
+                            {% import "../templates/macros/coin_addrqr.njk" as gldx %}
+                            {{ gldx.addrqr('gldx') }}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include "../templates/modals/spinner.njk" %}
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %} 
+    <script type="text/javascript" src="../dist/js/locals.js"></script>
+    <script type="text/javascript" src="../plugins/metisMenu/metisMenu.min.js"></script>
+    <script type="text/javascript" src="../plugins/qrious/qrious.js"></script>
+    <script type="text/javascript" src="../dist/js/qr-gen.js"></script>
+    <script type="text/javascript" src="../dist/js/index.js"></script>
+{% endblock %}

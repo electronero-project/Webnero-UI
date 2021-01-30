@@ -1,0 +1,51 @@
+<div class="modal fade" id="send-code-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="panel panel-etnx" style="margin-bottom: 0;">
+                <div class="panel-heading" style="text-align: center">
+                    {% for coin in coins %}
+                        <img height="40px" width="40px" src="../img/{{coin}}.png" />
+                    {% endfor %}
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-danger" style="display: none">
+                    </div>
+                    <div class="alert alert-success" style="display: none">
+                        Transfer success!
+                    </div>
+                    <div role="form">
+                        <fieldset>
+                            <div class="form-group" style="text-align: center">
+                                <input id="digit-1" class="form-control" type="password" style="width: 34px; display: inline-block" disabled>
+                                <input id="digit-2" class="form-control" type="password" style="width: 34px; display: inline-block" disabled>
+                                <input id="digit-3" class="form-control" type="password" style="width: 34px; display: inline-block" disabled>
+                                <input id="digit-4" class="form-control" type="password" style="width: 34px; display: inline-block" disabled>
+                                <input id="digit-5" class="form-control" type="password" style="width: 34px; display: inline-block" disabled>
+                            </div>
+                            <div class="form-group" style="text-align: center">
+                                <button id="1" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">1</button>
+                                <button id="2" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">2</button>
+                                <button id="3" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">3</button>
+                            </div>
+                            <div class="form-group" style="text-align: center">
+                                <button id="4" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">4</button>
+                                <button id="5" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">5</button>
+                                <button id="6" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">6</button>
+                            </div>
+                            <div class="form-group" style="text-align: center">
+                                <button id="7" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">7</button>
+                                <button id="8" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">8</button>
+                                <button id="9" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">9</button>
+                            </div>
+                            <div class="form-group" style="text-align: center">
+                                <button id="0" type="button" class="digit btn btn-lg btn-login btn-primary btn-circle">0</button>
+                            </div>
+                            <button id="del" type="button" class="btn btn-lg btn-login btn-block btn-primary btn-code">Cancel</button>
+                            <button id="send" type="button" class="btn btn-lg btn-login btn-block btn-primary btn-code">Send</button>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

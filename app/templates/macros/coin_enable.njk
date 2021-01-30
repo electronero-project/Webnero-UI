@@ -1,0 +1,18 @@
+{% macro enable(coin, label) %}
+
+<div class="panel panel-etnx panel-settings">
+    <div class="panel-heading">
+        {{ label }}
+    </div>
+    <div class="panel-body">
+        <img height="70px" width="70px" src="../img/{{ coin }}.png">
+        <label class="switch">
+            <input coin="{{ coin }}" type="checkbox"
+                msg-on="Please check email and verify coin account" 
+                msg-off="Are you sure you want to delete {{ coin | upper }} coin wallet?" >
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>
+
+{% endmacro %}

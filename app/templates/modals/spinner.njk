@@ -1,0 +1,24 @@
+<div class="modal fade" id="spinner-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="panel panel-etnx" style="margin-bottom: 0;">
+                <div class="panel-body" style="height: 300px">
+                    <div class="row" style="text-align: center; margin-top: 65px;">
+                        {% for coin in coins %}
+                            <img height="80px" width="80px" src="../img/{{coin}}.png" />
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="cssload-loader">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

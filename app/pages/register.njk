@@ -1,0 +1,44 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+
+    <div class="container">
+        <div id="register-container" class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-etnx">
+                    <div class="panel-heading" style="text-align: center">
+                        {% for coin in coins %}
+                            <img height="40px" width="40px" src="../img/{{coin}}.png" />
+                        {% endfor %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-danger" style="display: none">
+                        </div>
+                        <div role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input id="re-password" class="form-control" placeholder="Re-type Password" name="re-password" type="password" value="">
+                                </div>
+                                <button id="register" type="button" class="btn btn-lg btn-login btn-block btn-primary">Set Code</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "../templates/pin-code.njk" %}
+    </div>
+    {% include "../templates/modals/spinner.njk" %}
+{% endblock %}
+
+{% block scripts %} 
+    <script type="text/javascript" src="../dist/js/pin-code-utils.js"></script>
+    <script type="text/javascript" src="../dist/js/register.js"></script>
+{% endblock %}

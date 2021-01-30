@@ -1,0 +1,47 @@
+<!-- index.njk -->
+{% extends "layout.njk" %}
+
+{% block content %}
+<div class="login-root">
+    <div class="container">
+        <div id="login-container" class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-etnx">
+                    <div class="panel-heading" style="text-align: center">
+                        {% for coin in coins %}
+                            <img height="40px" width="40px" src="../img/{{coin}}.png" />
+                        {% endfor %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-danger" style="display: none">
+                            Login fail, please check email and password
+                        </div>
+                        <div class="alert alert-success" style="display: none">
+                            Login successful, retrieving data, please wait
+                        </div>
+                        <div role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <button id="login" class="btn btn-lg btn-login btn-block btn-primary">Login</button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "../templates/pin-code.njk" %}
+    </div>
+    {% include "../templates/modals/spinner.njk" %}
+</div>
+{% endblock %}
+
+{% block scripts %} 
+    <script type="text/javascript" src="../dist/js/pin-code-utils.js"></script>
+    <script type="text/javascript" src="../dist/js/login-utils.js"></script>
+    <script type="text/javascript" src="../dist/js/login.js"></script>
+{% endblock %}

@@ -16,22 +16,22 @@ $("body").keydown(function() {
     var doOp = eWhich===48 ? '0' : eWhich===49 ? '1' : eWhich===50 ? '2' : eWhich===51 ? '3' : eWhich===52 ? '4' : eWhich===53 ? '5' : eWhich===54 ? '6' : eWhich===55 ? '7' : eWhich===56 ? '8' : eWhich===57 ? '9' : eWhich===13 ? 'enter' : eWhich===8 ? 'delete' :'not a key we process';
 	
 	function enterCase(){
-    if(document.getElementById("pin-code")&&document.getElementById("login")){
-	    document.getElementById("login").click();
-	    document.getElementById("pin-code").click();	    
-	    } else if(document.getElementById("pin-code")){
-		    document.getElementById("pin-code").click();
-	    } else if(document.getElementById("register")){
-		    document.getElementById("register").click();
-	    } else if (document.getElementById("send")){
-		       document.getElementById("send").click();
-		       }
-	};
+        if($("#login-container").css("display") === 'block')
+            document.getElementById("login").click();
+        else if($("#pin-code-container").css("display") === 'block')
+            document.getElementById("pin-code").click();
+        else if($("#register-container").css("display") === 'block')
+            document.getElementById("register").click();
+        else if($("#send-code-modal").css("display") === 'block')
+            document.getElementById("send").click();
+    };
+    
 	function backCase(){
-    if(document.getElementById("del")){
-	    document.getElementById("del").click();
-	    }
-	};
+        if(document.getElementById("del")){
+            document.getElementById("del").click();
+        }
+    };
+    
     switch (doOp) {
         case '0':
             document.getElementById("0").click();

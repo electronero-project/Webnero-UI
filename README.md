@@ -11,3 +11,6 @@ To update dependencies, run `bower update` and then run `gulp copy` to copy the 
 bower init
 bower install
 bower update
+
+npm install gulp-nunjucks-render --save-dev
+npm install gulp-data --save-dev

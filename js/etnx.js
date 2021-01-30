@@ -296,3 +296,18 @@ $(document).on("click", "#logout", function(){
     localStorage.clear();
     location.href = "login.html";
 });
+
+$(document).on("click", "#light-mode", function(){
+    sessionStorage.setItem("light-mode", true);
+    $("body").addClass("light");
+});
+
+$(document).ready(function(){
+    if(sessionStorage.getItem("light-mode") != null)
+        $("body").addClass("light");
+});
+
+$(document).on("click", "#dark-mode", function(){
+    sessionStorage.removeItem("light-mode");
+    $("body").removeClass("light");
+});
