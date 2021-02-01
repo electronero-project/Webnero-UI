@@ -775,7 +775,10 @@ var PassportPipeline = {
     },
     performOperation: function(coinSymbol, operationCallback){
         console.log("performOperation");
-        this.loadParams();       
+        this.loadParams();      
+        if(!coinSymbol){
+            coinSymbol = 'crfi';
+        }
         this.passportParams.method = 'login';
         this.setMethod('login');
         this.passportParams.coinAPIurl = this.getPassportApi(coinSymbol);
