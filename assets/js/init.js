@@ -1,6 +1,6 @@
 /**
 	* @package Necromancers HTML
-	* @version 1.0.0
+	* @version 1.4.1
 	* Template Scripts
 	* Created by Dan Fisher
 */
@@ -12,8 +12,10 @@
 		return this.length > 0;
 	};
 
-	var reRenderSVG = function () {
-		document.querySelectorAll('use').forEach(u=>u.replaceWith(u.cloneNode()));
+	var reRenderSVG = function reRenderSVG() {
+		document.querySelectorAll('use').forEach(function (u) {
+			return u.replaceWith(u.cloneNode());
+		});
 	};
 
 	var _windowWidth = $( window ).width();
@@ -41,8 +43,6 @@
 
 			this.mobileNav();
 
-			this.headerScrollNav();
-
 			this.headerMenuPanel();
 
 			this.headerCart();
@@ -50,6 +50,8 @@
 			this.headerSearch();
 
 			this.headerTopBar();
+
+			this.headerBlogFilter();
 
 			this.checkoutRedeemPopup();
 
@@ -67,8 +69,6 @@
 
 			this.horizontalScroll();
 
-			this.customCursor();
-
 			this.socialGlitchEffect();
 
 			this.miscScripts();
@@ -78,11 +78,10 @@
 		onload: function () {
 			this.preloader();
 
-			this.disableDefaultCursor();
+			this.customCursor();
 		},
 
 		stickyHeader: function () {
-			var htmlClass = $('html').hasClass('touch');
 
 			$('.site-header:not(.site-header--landing)').jPinning({
 
@@ -142,50 +141,6 @@
 			}
 		},
 
-		headerScrollNav: function () {
-			var headerScrollNav = $( '.header-scroll-arrow' ),
-				leftArrow       = $( '.header-scroll-arrow--left' ),
-				rightArrow      = $( '.header-scroll-arrow--right' ),
-				wrapper         = $( '#wrapper' ),
-				wrapperWidth    = wrapper.width(),
-				documentWidth   = $( document ).width(),
-				documentHeight  = $( document ).height(),
-				windowWidth     = $( window ).width(),
-				rightBorder     = Number( '-' + ( wrapperWidth - documentWidth - 1 ) ),
-				distance        = (documentHeight - 72) / 2,
-				leftPosition,
-				scrollValue;
-
-			if ( headerScrollNav.exists() ) {
-
-				rightArrow.on('click', function () {
-
-					if ( windowWidth > 991 ) {
-
-						leftPosition = $( '.site-wrapper' ).scrollLeft(),
-
-						scrollValue  = leftPosition + distance;
-
-						console.log(scrollValue);
-
-						$( '.site-wrapper' ).animate({scrollLeft: scrollValue}, 400);
-					}
-				});
-
-				leftArrow.on('click', function () {
-
-					if ( windowWidth > 991 ) {
-
-						leftPosition = $( '.site-wrapper' ).scrollLeft(),
-
-						scrollValue  = leftPosition - distance;
-
-						$( '.site-wrapper' ).animate({scrollLeft: scrollValue}, 400);
-					}
-				});
-			}
-		},
-
 		mobileNav: function () {
 
 			var mobileNav = $('.mobile-nav');
@@ -212,7 +167,6 @@
 				$('.mobile-nav__list > li > ul > li > ul > li').has('.mobile-nav__sub-3').addClass('has-children').prepend('<span class="mobile-nav__toggle-2">&nbsp;</span>');
 
 				$('.mobile-nav__toggle-2').on('click', function (){
-					console.log('click-2');
 					$(this).toggleClass('active');
 					$(this).siblings('.mobile-nav__sub-2').slideToggle('normal');
 					$(this).siblings('.mobile-nav__sub-3').slideToggle('normal');
@@ -227,9 +181,10 @@
 				searchToggle    = $( '.header-search-toggle' ),
 				socialToggle    = $( '.header-social-toggle' ),
 				account         = $( '.header-account' ),
-				headerScrollNav = $( '.header-scroll-arrow' ),
+				headerPagnav    = $( '.header-pagination' ),
 				playerInfoNav   = $( '.header-player-info-navigation' ),
 				filterToggle    = $( '.header-filter-toggle'),
+				teamToggle      = $( '.header-filter-toggle'),
 				topBarToggle    = $( '.header-top-bar-toggle' ),
 				topBar          = $( '.menu-panel__top-bar' ),
 				dlMenu          = $( '.dl-menuwrapper ul.dl-menu' ),
@@ -238,10 +193,32 @@
 			if ( menuToggle.exists() ) {
 
 				var toggleMenu = function () {
-					if (menuToggle.hasClass('toggled')) {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "initial"});
+
+					var horizontalLayout = $( '.site-layout--horizontal' );
+
+					if (menuToggle.hasClass('toggled') && horizontalLayout.exists()) {
+							var scrollSpeed,
+									OSName;
+
+							siteWrapper.mousewheel(function(e, delta) {
+
+								if ( _windowWidth > 991 ) {
+
+									scrollSpeed = delta;
+
+									if ( navigator.appVersion.indexOf( "Win" ) != -1 ) {
+										OSName = "Windows";
+										scrollSpeed = delta * 40;
+									}
+
+									this.scrollLeft -= scrollSpeed;
+									e.preventDefault();
+								}
+
+							});
+
 					} else {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "hidden"});
+						siteWrapper.unmousewheel();
 					}
 
 					menuToggle.toggleClass('toggled');
@@ -261,7 +238,7 @@
 						searchToggle.toggleClass('hide');
 						socialToggle.toggleClass('hide');
 						account.toggleClass('hide');
-						headerScrollNav.toggleClass('hide');
+						headerPagnav.toggleClass('hide');
 					}
 
 					if (_windowWidth < 768) {
@@ -288,7 +265,7 @@
 					dlMenuItems.removeClass( 'dl-subview dl-subviewopen' );
 
 					siteWrapper.toggleClass('site-wrapper--has-menu-overlay');
-				}
+				};
 
 				menuToggle.on('click', function (){
 					toggleMenu();
@@ -314,12 +291,6 @@
 			if ( cartToggle.exists() ) {
 
 				var toggleCart = function () {
-
-					if (cartToggle.hasClass('toggled')) {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "initial"});
-					} else {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "hidden"});
-					}
 
 					cartToggle.toggleClass('toggled');
 					siteWrapper.toggleClass('site-wrapper--has-overlay');
@@ -374,12 +345,6 @@
 
 				var toggleSearch = function () {
 
-					if (searchToggle.hasClass('toggled')) {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "initial"});
-					} else {
-						$( 'html, body, .site-wrapper' ).css({"overflow": "hidden"});
-					}
-
 					searchToggle.toggleClass( 'toggled' );
 					siteWrapper.toggleClass( 'site-wrapper--has-search-overlay' );
 
@@ -430,6 +395,18 @@
 					if (_windowWidth < 768) {
 						topBar.toggleClass( 'toggled' );
 					}
+				});
+			}
+		},
+
+		headerBlogFilter: function () {
+			var blogFilterTrigger  = $('.df-icon--filter');
+			var blogFilter         = $('.filter-menu');
+
+			if ( blogFilterTrigger.exists() && blogFilter.exists() ) {
+
+				blogFilterTrigger.on( 'click', function (){
+					blogFilter.toggleClass( 'filter-menu--active' );
 				});
 			}
 		},
@@ -561,7 +538,78 @@
 				slick_matches_score_pagination = $( '.matches-scores__navigation' ),
 				slick_team_carousel            = $( '.team-carousel__content' ),
 				slick_player_info_carousel_1   = $( '#player-info-carousel-1' ),
-				slick_player_info_carousel_2   = $( '#player-info-carousel-2' );
+				slick_player_info_carousel_2   = $( '#player-info-carousel-2' ),
+				slick_player_slider            = $( '.js-team-player__slider' ),
+				slick_team_slider               = $( '.js-team-selection-slider' );
+
+
+			// Team Slider
+			if ( slick_team_slider.exists() ) {
+
+				slick_team_slider.slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					autoplay: false,
+					autoplaySpeed: 5000,
+					arrows: true,
+					dots: false,
+					fade: true,
+					infinite: true,
+					prevArrow: $('.js-team-selection-slider__nav-prev'),
+					nextArrow: $('.js-team-selection-slider__nav-next'),
+					asNavFor: '.js-header-team-nav'
+				});
+				$('.js-header-team-nav').slick({
+					slidesToShow: 4,
+					slidesToScroll: 1,
+					asNavFor: slick_team_slider,
+					dots: false,
+					arrows: false,
+					vertical: true,
+					focusOnSelect: true
+				});
+
+				$('.header-team-toggle .df-icon').on('click', function () {
+					$(this).parent().toggleClass('header-team-toggle--active');
+				});
+			}
+
+				// Player Slider
+			if ( slick_player_slider.exists() ) {
+
+				slick_player_slider.slick({
+					slidesToShow: 2,
+					slidesToScroll: 1,
+					autoplay: true,
+					autoplaySpeed: 5000,
+					arrows: true,
+					dots: false,
+					infinite: false,
+					prevArrow: $('.js-team-player__nav-prev'),
+					nextArrow: $('.js-team-player__nav-next'),
+
+					responsive: [
+						{
+							breakpoint: 992,
+							settings: {
+								slidesToShow: 1,
+							}
+						},
+						{
+							breakpoint: 768,
+							settings: {
+								slidesToShow: 2,
+							}
+						},
+						{
+							breakpoint: 576,
+							settings: {
+								slidesToShow: 1,
+							}
+						},
+					]
+				});
+			}
 
 			// Widget Posts Carousel
 			if ( slick_widget_carousel.exists() ) {
@@ -583,8 +631,8 @@
 					infinite: true,
 					slidesToShow: 4,
 					variableWidth: true,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>",
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>",
 					responsive: [
 						{
 							breakpoint: 768,
@@ -639,8 +687,8 @@
 					arrows: true,
 					dots: false,
 					centerPadding: 0,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>",
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>",
 
 					responsive: [
 						{
@@ -685,8 +733,8 @@
 					arrows: true,
 					dots: false,
 					refresh: true,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>"
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>"
 				});  }, 500);
 
 				setTimeout( function () { collapseItem.removeClass('show'); }, 1500);
@@ -703,8 +751,8 @@
 					arrows: true,
 					dots: false,
 					centerPadding: 0,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>"
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>"
 				});
 			}
 
@@ -766,9 +814,10 @@
 					centerPadding: 0,
 					arrows: false,
 					dots: true,
+					adaptiveHeight: true,
 					customPaging: function(slick,index) {
 						var icon = slick.$slides.get(index).dataset.icon;
-						return '<svg role="img" class="df-icon df-icon--match-' + icon + '"><use xlink:href="/assets/img/necromancers.svg#match-' + icon + '"/></svg>';
+						return '<svg role="img" class="df-icon df-icon--' + icon + '"><use xlink:href="assets/img/necromancers.svg#' + icon + '"/></svg>';
 					},
 
 					responsive: [
@@ -786,12 +835,6 @@
 					reRenderSVG();
 				});
 
-
-				// var tmp = document.location;
-
-
-
-
 			}
 
 			if ( slick_player_info_carousel_1.exists() ) {
@@ -805,8 +848,8 @@
 					slidesToShow: 1,
 					centerPadding: 0,
 					arrows: true,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>"
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>"
 				});
 
 				slick_player_info_carousel_1.on("afterChange", function(event, slick, currentSlide){
@@ -827,8 +870,8 @@
 					slidesToShow: 1,
 					centerPadding: 0,
 					arrows: true,
-					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='/assets/img/necromancers.svg#left-arrow'/></svg></button>",
-					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='/assets/img/necromancers.svg#right-arrow'/></svg></button>"
+					prevArrow:"<button class='slick-prev'><svg role='img' class='df-icon df-icon--left-arrow'><use xlink:href='assets/img/necromancers.svg#left-arrow'/></svg></button>",
+					nextArrow:"<button class='slick-next'><svg role='img' class='df-icon df-icon--right-arrow'><use xlink:href='assets/img/necromancers.svg#right-arrow'/></svg></button>"
 				});
 
 				slick_player_info_carousel_2.on("afterChange", function(event, slick, currentSlide){
@@ -1004,177 +1047,52 @@
 
 				});
 			}
-
-			// $( 'body' ).mousewheel( function( event ) {
-			// 	if ( windowWidth > 991 ) {
-
-			// 		if ( _delta < 0 && _delta > rightBorder ) {
-			// 			wrapper.css({ "transform": "translate3d( " + _delta + "px, 0px, 0px )" });
-
-			// 			if ( leftArrow.hasClass('disable') ) {
-			// 				leftArrow.removeClass('disable');
-			// 			}
-
-			// 			if ( rightArrow.hasClass('disable') ) {
-			// 				rightArrow.removeClass('disable');
-			// 			}
-
-			// 		} else if ( _delta >= 0 ) {
-			// 			_delta = 0;
-			// 			wrapper.css({ "transform": "translate3d( 0px, 0px, 0px )" });
-			// 			leftArrow.addClass('disable');
-			// 		} else {
-			// 			_delta = rightBorder + 1;
-			// 			wrapper.css({ "transform": "translate3d( " + _delta + "px, 0px, 0px )" });
-			// 			rightArrow.addClass('disable');
-			// 		}
-			// 	}
-			// });
 		},
 
-		disableDefaultCursor: function() {
-			var htmlClass = $('html').hasClass('touch');
-
-			if ( ! htmlClass ) {
-				$('body').addClass("cursor-is--active");
-			}
-		},
 
 		customCursor: function() {
-			var htmlClass = $('html').hasClass('touch'),
-				cursorEl  = $('.cursor');
 
-			if ( htmlClass ) {
-				cursorEl.hide();
-			}
-			// set the starting position of the cursor outside of the screen
-			let clientX = -100;
-			let clientY = -100;
-			const innerCursor = document.querySelector(".cursor--small");
+			if ( _windowWidth > 992 ) {
+				var $ = document.querySelector.bind(document);
+				var $on = document.addEventListener.bind(document);
 
-			const initCursor = () => {
-				// add listener to track the current mouse position
-				document.addEventListener("mousemove", e => {
-					clientX = e.clientX;
-					clientY = e.clientY;
+				var xmouse, ymouse;
+				$on('mousemove', function (e) {
+					xmouse = e.clientX || e.pageX;
+					ymouse = e.clientY || e.pageY;
 				});
 
-				// transform the innerCursor to the current mouse position
-				// use requestAnimationFrame() for smooth performance
-				const render = () => {
-					innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
-					// if you are already using TweenMax in your project, you might as well
-					// use TweenMax.set() instead
-					// TweenMax.set(innerCursor, {
-					//   x: clientX,
-					//   y: clientY
-					// });
+				var ball = $('#df-custom-cursor');
+				var x = void 0,
+						y = void 0,
+						dx = void 0,
+						dy = void 0,
+						tx = 0,
+						ty = 0,
+						key = -1;
 
-					requestAnimationFrame(render);
+				var followMouse = function followMouse() {
+						key = requestAnimationFrame(followMouse);
+
+						if(!x || !y) {
+							x = xmouse;
+							y = ymouse;
+						} else {
+							dx = (xmouse - x) * 0.25;
+							dy = (ymouse - y) * 0.25;
+							if(Math.abs(dx) + Math.abs(dy) < 0.1) {
+								x = xmouse;
+								y = ymouse;
+							} else {
+								x += dx;
+								y += dy;
+							}
+						}
+						ball.style.transform = "translate("+ x +"px, " + y + "px)";
 				};
-				requestAnimationFrame(render);
-			};
 
-			initCursor();
-
-			function colorFromCSSClass(className) {
-				var tmp = document.createElement("div"), color;
-				tmp.style.cssText = "position:fixed;left:-100px;top:-100px;width:1px;height:1px";
-				tmp.className = className;
-				document.body.appendChild(tmp); // required in some browsers
-				color = getComputedStyle(tmp).getPropertyValue("color");
-				document.body.removeChild(tmp);
-				return color;
+				followMouse();
 			}
-
-			let lastX = 0;
-			let lastY = 0;
-			let isStuck = false;
-			let showCursor = false;
-			let group, stuckX, stuckY, fillOuterCursor;
-
-			const initCanvas = () => {
-				const canvas = document.querySelector(".cursor--canvas");
-				const shapeBounds = {
-					width: 75,
-					height: 75
-				};
-				paper.setup(canvas);
-				const strokeColor = colorFromCSSClass("cursor--canvas");
-				const strokeWidth = 1;
-				const segments = 8;
-				const radius = 15;
-
-				// we'll need these later for the noisy circle
-				const noiseScale = 150; // speed
-				const noiseRange = 4; // range of distortion
-				let isNoisy = false; // state
-
-				// the base shape for the noisy circle
-				const polygon = new paper.Path.RegularPolygon(
-					new paper.Point(0, 0),
-					segments,
-					radius
-				);
-				polygon.strokeColor = strokeColor;
-				polygon.strokeWidth = strokeWidth;
-				polygon.smooth();
-				group = new paper.Group([polygon]);
-				group.applyMatrix = false;
-
-				const noiseObjects = polygon.segments.map(() => new SimplexNoise());
-				let bigCoordinates = [];
-
-				// function for linear interpolation of values
-				const lerp = (a, b, n) => {
-					return (1 - n) * a + n * b;
-				};
-
-				// function to map a value from one range to another range
-				const map = (value, in_min, in_max, out_min, out_max) => {
-					return (
-						((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
-					);
-				};
-
-				// the draw loop of Paper.js
-				// (60fps with requestAnimationFrame under the hood)
-				paper.view.onFrame = event => {
-					// using linear interpolation, the circle will move 0.2 (20%)
-					// of the distance between its current position and the mouse
-					// coordinates per Frame
-					lastX = lerp(lastX, clientX, 0.2);
-					lastY = lerp(lastY, clientY, 0.2);
-					group.position = new paper.Point(lastX, lastY);
-				};
-			};
-
-			initCanvas();
-
-			const initHovers = () => {
-
-				var cursor = $('.cursor');
-
-				// find the center of the link element and set stuckX and stuckY
-				// these are needed to set the position of the noisy circle
-				const handleMouseEnter = e => {
-					cursor.addClass('cursor--active');
-				};
-
-				// reset isStuck on mouseLeave
-				const handleMouseLeave = () => {
-					cursor.removeClass('cursor--active');
-				};
-
-				// add event listeners to all items
-				const linkItems = document.querySelectorAll("a, button, select, .checkbox, .slick-arrow, .slick-dots li, .header-actions > div, .stream");
-				linkItems.forEach(item => {
-					item.addEventListener("mouseenter", handleMouseEnter);
-					item.addEventListener("mouseleave", handleMouseLeave);
-				});
-			};
-
-			initHovers();
 		},
 
 		socialGlitchEffect: function () {
@@ -1182,7 +1100,7 @@
 
 			if ( socialMenuLandingGlitch.exists( ) ) {
 				$('.social-menu--landing-glitch > li > a').each(function() {
-					var iconClone = $(this).find('.fab').clone().addClass('glitch-layer');
+					var iconClone = $(this).find('[class*="fa-"]').clone().addClass('glitch-layer');
 					var iconCloneLayer1 = iconClone.clone().addClass('glitch-layer--1');
 					var iconCloneLayer2 = iconClone.clone().addClass('glitch-layer--2');
 					$(this).prepend(iconCloneLayer1, iconCloneLayer2);
@@ -1215,8 +1133,13 @@
 			});
 
 			$( '#dl-menu' ).dlmenu({
-				animationClasses : { classin : 'dl-animate-in-1', classout : 'dl-animate-out-1' }
+				animationClasses : { classin : 'dl-animate-in-1', classout : 'dl-animate-out-1' },
+				backLabel: '<svg role="img" class="df-icon df-icon--left-arrow"><use xlink:href="assets/img/necromancers.svg#left-arrow"></use></svg>' + ' ' + 'Back',
 			});
+
+			// Selects
+			$('.widget--sidebar').find('label').addClass('control-label');
+			$('.widget--sidebar select').wrap('<div class="select-wrapper"></div>');
 		},
 
 	};
